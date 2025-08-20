@@ -3,139 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VR AUTOS | Premium Car Dealership</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>VR Autos Dealership</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-    :root{
-      --primary-red:#d50000;
-      --primary-blue:#0066cc;
-      --dark-blue:#004080;
-      --light-gray:#f5f5f5;
-      --dark-gray:#333;
-    }
-    body{background:#fff;color:#333;line-height:1.6;}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
 
-    /* Header with Slider */
-    header{position:relative;width:100%;overflow:hidden;}
-    .slider{display:flex;width:1000%;animation:slide 40s infinite linear;}
-    .slide{flex:1 0 10%;height:70vh;}
-    .slide img{width:100%;height:100%;object-fit:cover;}
-    @keyframes slide{
-      0%{transform:translateX(0);}
-      100%{transform:translateX(-90%);} /* 10 slides */
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background: #111;
+      color: white;
+    }
+    header img.logo {
+      height: 50px;
     }
 
-    /* Company Logo */
-    .company-logo{text-align:center;padding:2rem;background:var(--light-gray);}
-    .company-logo img{max-width:200px;height:auto;}
+    /* Slider */
+    .slider {
+      position: relative;
+      width: 100%;
+      max-height: 450px;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      width: 1000%;
+      transition: transform 0.6s ease-in-out;
+    }
+    .slides img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: white;
+      background: rgba(0,0,0,0.4);
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+    }
+    .nav-btn.left { left: 15px; }
+    .nav-btn.right { right: 15px; }
 
-    /* Section Titles */
-    section{padding:4rem 2rem;max-width:1200px;margin:auto;}
-    .section-title{text-align:center;margin-bottom:2rem;}
-    .section-title h2{font-size:2rem;color:var(--dark-gray);}
+    /* Gallery */
+    .gallery {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .car-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .car-card img, .car-card video {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .car-card .content {
+      padding: 15px;
+    }
+    .car-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2em;
+    }
+    .details {
+      display: none;
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .show { display: block; }
+    .toggle-btn {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
 
-    /* Car Gallery */
-    .cars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
-    .car-card{border:1px solid #ddd;border-radius:8px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,.1);}
-    .car-card img{width:100%;height:200px;object-fit:cover;}
-    .car-info{padding:1rem;}
-    .car-info h3{margin-bottom:.5rem;}
-    .car-price{color:var(--primary-red);font-weight:bold;margin-bottom:.5rem;}
-    .toggle-details{display:block;margin-top:1rem;background:var(--primary-blue);color:#fff;padding:.5rem;text-align:center;border-radius:4px;cursor:pointer;}
-    .car-details{display:none;padding:1rem;border-top:1px solid #eee;}
-    .car-details video{width:100%;height:auto;margin-top:1rem;}
-    .car-details a{display:block;margin-top:.5rem;color:var(--primary-blue);}
-
-    /* Responsive */
-    @media(max-width:768px){
-      .cars-grid{grid-template-columns:repeat(2,1fr);}  /* 2 columns on mobile */
+    @media (max-width: 600px) {
+      .slider img { height: 250px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header with Slider -->
+  <!-- Header -->
   <header>
-    <div class="slider">
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?bmw" alt="car1"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?audi" alt="car2"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?mercedes" alt="car3"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?porsche" alt="car4"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?ferrari" alt="car5"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?lamborghini" alt="car6"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?tesla" alt="car7"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?jaguar" alt="car8"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?landrover" alt="car9"></div>
-      <div class="slide"><img src="https://source.unsplash.com/1600x900/?maserati" alt="car10"></div>
-    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Car_icon_2.svg/1024px-Car_icon_2.svg.png" alt="VR Autos Logo" class="logo">
+    <h1>VR Autos Dealership</h1>
   </header>
 
-  <!-- Company Logo Section -->
-  <div class="company-logo">
-    <img src="https://drive.google.com/file/d/1acDh81aIe1iDh2WDItMY-krnGecGP-ID/view?usp=sharing" alt="VR AUTOS Logo">
-    <h1>VR AUTOS</h1>
-    <p>Premium Car Dealership</p>
-  </div>
-
-  <!-- Car Gallery -->
-  <section>
-    <div class="section-title">
-      <h2>Our Car Gallery</h2>
-      <p>Explore over 20 premium vehicles</p>
+  <!-- Slider -->
+  <section class="slider">
+    <div class="slides" id="slides">
+      <img src="https://source.unsplash.com/1600x900/?car,1" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,2" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,3" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,4" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,5" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,6" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,7" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,8" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,9" alt="">
+      <img src="https://source.unsplash.com/1600x900/?car,10" alt="">
     </div>
-    <div class="cars-grid">
-      <!-- Repeat 20 car cards -->
-      <div class="car-card">
-        <img src="https://source.unsplash.com/400x250/?bmw,m4" alt="BMW">
-        <div class="car-info">
-          <h3>BMW M4</h3>
-          <p class="car-price">$79,999</p>
-          <span class="toggle-details">View Details</span>
-          <div class="car-details">
-            <p>Engine: 3.0L Twin-Turbo</p>
-            <video controls>
-              <source src="sample.mp4" type="video/mp4">
-            </video>
-            <a href="https://youtube.com">Watch on YouTube</a>
-          </div>
-        </div>
+    <button class="nav-btn left" onclick="prevSlide()">❮</button>
+    <button class="nav-btn right" onclick="nextSlide()">❯</button>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <!-- Repeat 20 cars -->
+    <div class="car-card">
+      <img src="https://source.unsplash.com/600x400/?bmw" alt="">
+      <div class="content">
+        <h3>BMW X5</h3>
+        <button class="toggle-btn" onclick="toggleDetails(this)">View Details</button>
+        <div class="details">Luxury SUV with premium features. <a href="https://youtube.com" target="_blank">Watch on YouTube</a></div>
       </div>
-      <!-- Duplicate structure with different cars/images -->
-      <!-- I’ll add multiple different cars -->
-      
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?audi" alt="Audi"><div class="car-info"><h3>Audi A6</h3><p class="car-price">$55,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Luxury Sedan</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?mercedes" alt="Mercedes"><div class="car-info"><h3>Mercedes E-Class</h3><p class="car-price">$62,500</p><span class="toggle-details">View Details</span><div class="car-details"><p>Hybrid Sedan</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?porsche" alt="Porsche"><div class="car-info"><h3>Porsche 911</h3><p class="car-price">$120,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Sports Coupe</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?ferrari" alt="Ferrari"><div class="car-info"><h3>Ferrari Roma</h3><p class="car-price">$220,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>V8 Turbo</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?lambo" alt="Lamborghini"><div class="car-info"><h3>Lamborghini Huracan</h3><p class="car-price">$250,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>V10 Supercar</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?tesla" alt="Tesla"><div class="car-info"><h3>Tesla Model S</h3><p class="car-price">$95,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Electric AWD</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?jaguar" alt="Jaguar"><div class="car-info"><h3>Jaguar F-Type</h3><p class="car-price">$88,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Convertible</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?landrover" alt="Land Rover"><div class="car-info"><h3>Range Rover</h3><p class="car-price">$110,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Luxury SUV</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?maserati" alt="Maserati"><div class="car-info"><h3>Maserati Ghibli</h3><p class="car-price">$80,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Italian Sedan</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-
-      <!-- Duplicate to reach 20 -->
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car1" alt="Car"><div class="car-info"><h3>Car 11</h3><p class="car-price">$40,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car2" alt="Car"><div class="car-info"><h3>Car 12</h3><p class="car-price">$42,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car3" alt="Car"><div class="car-info"><h3>Car 13</h3><p class="car-price">$43,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car4" alt="Car"><div class="car-info"><h3>Car 14</h3><p class="car-price">$44,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car5" alt="Car"><div class="car-info"><h3>Car 15</h3><p class="car-price">$45,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car6" alt="Car"><div class="car-info"><h3>Car 16</h3><p class="car-price">$46,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car7" alt="Car"><div class="car-info"><h3>Car 17</h3><p class="car-price">$47,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car8" alt="Car"><div class="car-info"><h3>Car 18</h3><p class="car-price">$48,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car9" alt="Car"><div class="car-info"><h3>Car 19</h3><p class="car-price">$49,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
-      <div class="car-card"><img src="https://source.unsplash.com/400x250/?car10" alt="Car"><div class="car-info"><h3>Car 20</h3><p class="car-price">$50,000</p><span class="toggle-details">View Details</span><div class="car-details"><p>Description</p><video controls><source src="sample.mp4" type="video/mp4"></video><a href="https://youtube.com">Watch on YouTube</a></div></div></div>
     </div>
+
+    <div class="car-card">
+      <video src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" controls></video>
+      <div class="content">
+        <h3>Audi A6</h3>
+        <button class="toggle-btn" onclick="toggleDetails(this)">View Details</button>
+        <div class="details">Executive sedan with advanced technology. <a href="https://youtube.com" target="_blank">Watch on YouTube</a></div>
+      </div>
+    </div>
+
+    <!-- Generate more cars with images -->
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?mercedes" alt=""><div class="content"><h3>Mercedes C-Class</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Compact luxury sedan. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?toyota" alt=""><div class="content"><h3>Toyota Corolla</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Reliable family car. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?honda" alt=""><div class="content"><h3>Honda Civic</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Sporty compact. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?ford" alt=""><div class="content"><h3>Ford Mustang</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">American muscle. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?porsche" alt=""><div class="content"><h3>Porsche 911</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Iconic sports car. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?nissan" alt=""><div class="content"><h3>Nissan GTR</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">High performance. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?tesla" alt=""><div class="content"><h3>Tesla Model S</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Electric performance. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <div class="car-card"><img src="https://source.unsplash.com/600x400/?jeep" alt=""><div class="content"><h3>Jeep Wrangler</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Off-road king. <a href="https://youtube.com">YouTube</a></div></div></div>
+    <!-- Add more until 20 -->
   </section>
 
   <script>
-    // Toggle details expand/collapse
-    document.querySelectorAll('.toggle-details').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const details = this.nextElementSibling;
-        details.style.display = details.style.display === 'block' ? 'none' : 'block';
-      });
-    });
+    // Slider logic
+    let index = 0;
+    const slides = document.getElementById('slides');
+    const total = slides.children.length;
+
+    function showSlide(i) {
+      index = (i + total) % total;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+    function nextSlide() { showSlide(index + 1); }
+    function prevSlide() { showSlide(index - 1); }
+
+    setInterval(nextSlide, 4000);
+
+    // Toggle details
+    function toggleDetails(btn) {
+      const details = btn.nextElementSibling;
+      details.classList.toggle('show');
+      btn.innerText = details.classList.contains('show') ? "Hide Details" : "View Details";
+    }
   </script>
 </body>
 </html>
