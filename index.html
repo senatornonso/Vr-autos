@@ -1,185 +1,1045 @@
+# VR AUTOS - Premium Car Dealership Landing Page
+
+I've completely redesigned the page according to your requirements: removed gradients, added logo section, expanded car gallery to 20 vehicles, added video players with YouTube integration, created a header car slider, and made everything highly responsive.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VR Autos Dealership</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR AUTOS | Premium Car Dealership</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    /* Header */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 30px;
-      background: #111;
-      color: white;
-    }
-    header img.logo {
-      height: 50px;
-    }
+        :root {
+            --primary-red: #d50000;
+            --primary-blue: #0066cc;
+            --dark-blue: #004080;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+        }
 
-    /* Slider */
-    .slider {
-      position: relative;
-      width: 100%;
-      max-height: 450px;
-      overflow: hidden;
-    }
-    .slides {
-      display: flex;
-      width: 1000%;
-      transition: transform 0.6s ease-in-out;
-    }
-    .slides img {
-      width: 100%;
-      height: 450px;
-      object-fit: cover;
-    }
-    .nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2rem;
-      color: white;
-      background: rgba(0,0,0,0.4);
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 50%;
-    }
-    .nav-btn.left { left: 15px; }
-    .nav-btn.right { right: 15px; }
+        body {
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    /* Gallery */
-    .gallery {
-      padding: 30px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    .car-card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    .car-card img, .car-card video {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .car-card .content {
-      padding: 15px;
-    }
-    .car-card h3 {
-      margin-bottom: 10px;
-      font-size: 1.2em;
-    }
-    .details {
-      display: none;
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: #555;
-    }
-    .show { display: block; }
-    .toggle-btn {
-      margin-top: 10px;
-      padding: 6px 12px;
-      background: #222;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-    }
+        /* Header Styles */
+        header {
+            background: var(--primary-red);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
 
-    @media (max-width: 600px) {
-      .slider img { height: 250px; }
-    }
-  </style>
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Header Car Slider */
+        .header-slider {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            position: relative;
+            background: #000;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: white;
+            max-width: 500px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .slide-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-cta {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .slide-cta:hover {
+            background: var(--dark-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80') no-repeat center center/cover;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-red);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+        }
+
+        /* Cars Grid */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .car-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .car-card:hover .car-image img {
+            transform: scale(1.1);
+        }
+
+        .car-details {
+            padding: 1.5rem;
+        }
+
+        .car-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+        }
+
+        .car-price {
+            color: var(--primary-red);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .car-spec {
+            text-align: center;
+        }
+
+        .car-spec i {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.3rem;
+        }
+
+        .car-spec span {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .view-details {
+            display: block;
+            width: 100%;
+            background: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .view-details:hover {
+            background: var(--dark-blue);
+        }
+
+        /* Expandable Car Details */
+        .car-expanded-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: var(--light-gray);
+        }
+
+        .car-expanded-details.active {
+            max-height: 2000px;
+        }
+
+        .car-detail-content {
+            padding: 1.5rem;
+        }
+
+        .car-detail-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .spec-item i {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-right: 1rem;
+            width: 30px;
+        }
+
+        .car-detail-features {
+            margin-bottom: 2rem;
+        }
+
+        .car-detail-features h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-item i {
+            color: var(--primary-red);
+            margin-right: 0.8rem;
+        }
+
+        .car-video {
+            margin-top: 2rem;
+        }
+
+        .car-video h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Video Gallery */
+        .video-gallery {
+            background-color: var(--light-gray);
+        }
+
+        .videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container-card {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container-card iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+        }
+
+        /* Logo Section */
+        .logo-section {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .logos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brand-logo {
+            height: 80px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-red);
+        }
+
+        .footer-section p, .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-red);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .cars-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            nav ul li {
+                margin-left: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .cars-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .slide-content {
+                left: 20px;
+                bottom: 20px;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .header-slider {
+                height: 400px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+                width: 100%;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cars-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                height: 60vh;
+            }
+            
+            .header-slider {
+                height: 350px;
+            }
+            
+            .slide-content {
+                left: 15px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .slide-content p {
+                font-size: 1rem;
+            }
+            
+            .logos-container {
+                gap: 1.5rem;
+            }
+            
+            .brand-logo {
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgNjAiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0yMjUgMTVIMjEydjMwSDE5NVYxNUgxODBWMmg0NVYxNXpNMTMwIDQ1Yy02LjYgMC0xMi01LjQtMTItMTJzNS40LTEyIDEyLTEyIDEyIDUuNCAxMiAxMi01LjQgMTItMTIgMTJ6bTAtMjljLTkuNCAwLTE3IDcuNi0xNyAxN3M3LjYgMTcgMTcgMTcgMTctNy42IDE3LTE3LTcuNi0xNy0xNy0xN3pNNjAgMTVINDV2MzBIMjhWMTVIMTNWMmg0N1YxNXoiLz48cGF0aCBmaWxsPSIjMDA2NmNjIiBkPSJNMTA1IDJoMTV2NDNoLTE1eiIvPjxwYXRoIGZpbGw9IiNkNTAwMDAiIGQ9Ik0wIDJoNDV2NDNIMHoiLz48L3N2Zz4=" alt="VR AUTOS Logo">
+                <h1>VR AUTOS</h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Cars</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Rentals</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <!-- Header -->
-  <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Car_icon_2.svg/1024px-Car_icon_2.svg.png" alt="VR Autos Logo" class="logo">
-    <h1>VR Autos Dealership</h1>
-  </header>
-
-  <!-- Slider -->
-  <section class="slider">
-    <div class="slides" id="slides">
-      <img src="https://source.unsplash.com/1600x900/?car,1" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,2" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,3" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,4" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,5" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,6" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,7" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,8" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,9" alt="">
-      <img src="https://source.unsplash.com/1600x900/?car,10" alt="">
+    <!-- Header Car Slider -->
+    <div class="header-slider">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Luxury Car">
+                    <div class="slide-content">
+                        <h2>Premium Luxury Vehicles</h2>
+                        <p>Discover our exclusive collection of high-end cars</p>
+                        <a href="#" class="slide-cta">Explore Now</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Sports Car">
+                    <div class="slide-content">
+                        <h2>Sports Car Collection</h2>
+                        <p>Experience the thrill of driving a premium sports car</p>
+                        <a href="#" class="slide-cta">View Collection</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e82138d43aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="SUV">
+                    <div class="slide-content">
+                        <h2>Family SUVs</h2>
+                        <p>Spacious and comfortable vehicles for your family</p>
+                        <a href="#" class="slide-cta">Discover SUVs</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1563720223880-4d93eef1f1c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Electric Car">
+                    <div class="slide-content">
+                        <h2>Electric Vehicles</h2>
+                        <p>Eco-friendly and innovative electric cars</p>
+                        <a href="#" class="slide-cta">Explore EVs</a>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80" alt="Car Interior">
+                    <div class="slide-content">
+                        <h2>Luxury Interiors</h2>
+                        <p>Experience unparalleled comfort and technology</p>
+                        <a href="#" class="slide-cta">See Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
     </div>
-    <button class="nav-btn left" onclick="prevSlide()">❮</button>
-    <button class="nav-btn right" onclick="nextSlide()">❯</button>
-  </section>
 
-  <!-- Gallery -->
-  <section class="gallery">
-    <!-- Repeat 20 cars -->
-    <div class="car-card">
-      <img src="https://source.unsplash.com/600x400/?bmw" alt="">
-      <div class="content">
-        <h3>BMW X5</h3>
-        <button class="toggle-btn" onclick="toggleDetails(this)">View Details</button>
-        <div class="details">Luxury SUV with premium features. <a href="https://youtube.com" target="_blank">Watch on YouTube</a></div>
-      </div>
-    </div>
+    <!-- Logo Section -->
+    <section class="logo-section">
+        <div class="section-title">
+            <h2>Brands We Work With</h2>
+            <p>Partnering with the world's finest automotive manufacturers</p>
+        </div>
+        <div class="logos-container">
+            <img src="https://www.freepnglogos.com/uploads/bmw-logo-png/bmw-logo-transparent-png- pictures-download-15.png" alt="BMW" class="brand-logo">
+            <img src="https://www.freepnglogos.com/uploads/mercedes-benz-logo-1.png" alt="Mercedes" class="brand-logo">
+            <img src="https://www.freepnglogos.com/uploads/audi-logo-1.png" alt="Audi" class="brand-logo">
+            <img src="https://www.freepnglogos.com/uploads/tesla-logo-png-20.png" alt="Tesla" class="brand-logo">
+            <img src="https://www.freepnglogos.com/uploads/lexus-logo-png/lexus-logo-symbol-meaning-history-3.png" alt="Lexus" class="brand-logo">
+            <img src="https://www.freepnglogos.com/uploads/logo-porsche/logo-porsche-4096.png" alt="Porsche" class="brand-logo">
+        </div>
+    </section>
 
-    <div class="car-card">
-      <video src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" controls></video>
-      <div class="content">
-        <h3>Audi A6</h3>
-        <button class="toggle-btn" onclick="toggleDetails(this)">View Details</button>
-        <div class="details">Executive sedan with advanced technology. <a href="https://youtube.com" target="_blank">Watch on YouTube</a></div>
-      </div>
-    </div>
+    <!-- Featured Cars -->
+    <section class="featured-cars">
+        <div class="section-title">
+            <h2>Featured Vehicles</h2>
+            <p>Explore our premium selection of cars</p>
+        </div>
+        <div class="cars-grid">
+            <!-- Cars will be added here with JavaScript -->
+        </div>
+    </section>
 
-    <!-- Generate more cars with images -->
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?mercedes" alt=""><div class="content"><h3>Mercedes C-Class</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Compact luxury sedan. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?toyota" alt=""><div class="content"><h3>Toyota Corolla</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Reliable family car. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?honda" alt=""><div class="content"><h3>Honda Civic</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Sporty compact. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?ford" alt=""><div class="content"><h3>Ford Mustang</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">American muscle. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?porsche" alt=""><div class="content"><h3>Porsche 911</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Iconic sports car. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?nissan" alt=""><div class="content"><h3>Nissan GTR</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">High performance. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?tesla" alt=""><div class="content"><h3>Tesla Model S</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Electric performance. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <div class="car-card"><img src="https://source.unsplash.com/600x400/?jeep" alt=""><div class="content"><h3>Jeep Wrangler</h3><button class="toggle-btn" onclick="toggleDetails(this)">View Details</button><div class="details">Off-road king. <a href="https://youtube.com">YouTube</a></div></div></div>
-    <!-- Add more until 20 -->
-  </section>
+    <!-- Video Gallery -->
+    <section class="video-gallery">
+        <div class="section-title">
+            <h2>Video Showcase</h2>
+            <p>Experience our vehicles in action</p>
+        </div>
+        <div class="videos-container">
+            <!-- Videos will be added here with JavaScript -->
+        </div>
+    </section>
 
-  <script>
-    // Slider logic
-    let index = 0;
-    const slides = document.getElementById('slides');
-    const total = slides.children.length;
+    <!-- Services -->
+    <section class="services">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>Comprehensive automotive solutions</p>
+        </div>
+        <div class="services-container">
+            <div class="service-card">
+                <i class="fas fa-car-side"></i>
+                <h3>Car Sales</h3>
+                <p>Browse our extensive inventory of premium vehicles with flexible financing options.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-key"></i>
+                <h3>Car Rental</h3>
+                <p>Rent luxury vehicles for short or long term with all-inclusive packages.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tools"></i>
+                <h3>Car Maintenance</h3>
+                <p>Expert servicing and maintenance by certified technicians using genuine parts.</p>
+            </div>
+        </div>
+    </section>
 
-    function showSlide(i) {
-      index = (i + total) % total;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    }
-    function nextSlide() { showSlide(index + 1); }
-    function prevSlide() { showSlide(index - 1); }
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>VR AUTOS</h3>
+                <p>Premium car dealership offering sales and rental services for luxury vehicles.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Inventory</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Rentals</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Luxury Avenue, Motor City</p>
+                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@vrautos.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 VR AUTOS. All rights reserved.</p>
+        </div>
+    </footer>
 
-    setInterval(nextSlide, 4000);
-
-    // Toggle details
-    function toggleDetails(btn) {
-      const details = btn.nextElementSibling;
-      details.classList.toggle('show');
-      btn.innerText = details.classList.contains('show') ? "Hide Details" : "View Details";
-    }
-  </script>
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        // Car data
+        const cars = [
+            {
+                id: 1,
+                name: "BMW M4 Competition",
+                price: "$79,999",
+                image: "https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+                mileage: "8,200 mi",
+                fuel: "Petrol",
+                type: "Coupe",
+                year: "2022",
+                transmission: "Automatic",
+                features: [
+                    "3.0L Twin-Turbo Inline-6 Engine",
+                    "503 Horsepower",
+                    "Carbon Fiber Roof",
+                    "M Sport Differential",
+                    "Adaptive M Suspension",
+                    "Premium Sound System",
+                    "Heated Seats",
+                    "Navigation System"
+                ],
+                video: "https://www.youtube.com/embed/6hSsYd0XwMc"
+            },
+            {
+                id: 2,
+                name: "Mercedes-Benz S-Class",
+                price: "$94,500",
+                image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
+                mileage: "12,400 mi",
+                fuel: "Hybrid",
+                type: "Sedan",
+                year: "2021",
+                transmission: "Automatic",
+                features: [
+                    "3.0L Inline-6 Turbo Hybrid",
+                    "429 Horsepower",
+                    "MBUX Infotainment System",
+                    "Air Suspension",
+                    "Burmester 4D Sound System",
+                    "Massage Seats",
+                    "Night View Assist",
+                    "Rear-wheel Steering"
+                ],
+                video: "https://www.youtube.com/embed/6hSsYd0XwMc"
+            },
+            {
+                id: 3,
+                name: "Audi Q7 Premium Plus",
+                price: "$64,800",
+                image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80",
+                mileage: "18,600 mi",
+                fuel: "Diesel",
+                type: "SUV",
+                year: "2020",
+                transmission: "Automatic",
+                features: [
+                    "3.0L V6 Turbo Diesel",
+                    "249 Horsepower",
+                    "Quattro All-Wheel Drive",
+                    "Virtual Cockpit",
+                    "MMI Navigation Plus",
+                    "Panoramic Sunroof",
+                    "Four-Zone Climate Control",
+                    "Audi Pre Sense"
+                ],
+                video: "https://www.youtube.com/embed/6hSsYd0XwMc"
+            },
+            {
+                id: 4,
+                name: "Porsche 911 Carrera",
+                price: "$115,200",
+                image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+                mileage: "6,500 mi",
+                fuel: "Petrol",
+                type: "Sports Car",
+                year: "2022",
+                transmission: "PDK Automatic",
+                features: [
+                    "3.0L Twin-Turbo Flat-6",
+                    "379 Horsepower",
+                    "Rear-Wheel Drive",
+                    "Sport Chrono Package",
+                    "Porsche Active Suspension",
+                    "Bose Surround Sound",
+                    "Sports Seats Plus",
+                    "Porsche Communication Management"
+                ],
+                video: "https://www.youtube.com/embed/6hSsYd0XwMc"
+            },
+            {
+                id: 5,
+                name: "Tesla Model S Plaid",
+                price: "$119,990",
+                image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+                mileage: "3,200 mi",
+                fuel: "Electric",
+                type: "Sedan",
+                year: "2022",
+                transmission: "Single-Speed",
+                features: [
+                    "Tri Electric Motor Setup",
+                    "1,020 Horsepower",
+                    "390 Miles Range",
+                    "0-60 mph in 1.99s",
+                    "Plaid Powertrain",
+                    "Yoke Steering",
+                    "22-speaker Audio",
+                    "17-inch Cinematic Display"
+                ],
+                video: "https://www.youtube.com/embed/6hSsYd0XwMc"
+            },
+            {
+                id: 6,
+                name: "Range Rover Velar",
+                price: "$68,500",
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+                mileage: "15,800 mi",
+                fuel: "Petrol",
+                type: "SUV",
+                year: "2021",
+                transmission: "Automatic",
